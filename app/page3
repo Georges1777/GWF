@@ -1,0 +1,121 @@
+// Simple website generator that creates HTML/CSS based on description
+
+interface WebsiteTemplate {
+  html: string;
+  css: string;
+  js: string;
+}
+
+function generatePortfolioWebsite(): WebsiteTemplate {
+  return {
+    html: `
+      <nav style="background-color: #1a1a1a; padding: 20px; text-align: center;">
+        <h1 style="color: white; margin: 0;">My Portfolio</h1>
+      </nav>
+      <section style="padding: 60px 20px; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <h2 style="font-size: 3em; margin-bottom: 20px;">Welcome</h2>
+        <p style="font-size: 1.2em;">Check out my work below</p>
+      </section>
+      <section style="padding: 60px 20px; max-width: 1200px; margin: 0 auto;">
+        <h2 style="text-align: center; margin-bottom: 40px;">Featured Projects</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; text-align: center;">
+            <div style="background: #667eea; width: 100%; height: 150px; border-radius: 8px; margin-bottom: 15px;"></div>
+            <h3>Project One</h3>
+            <p>Innovative design and development</p>
+          </div>
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; text-align: center;">
+            <div style="background: #764ba2; width: 100%; height: 150px; border-radius: 8px; margin-bottom: 15px;"></div>
+            <h3>Project Two</h3>
+            <p>Creative solutions</p>
+          </div>
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; text-align: center;">
+            <div style="background: #f093fb; width: 100%; height: 150px; border-radius: 8px; margin-bottom: 15px;"></div>
+            <h3>Project Three</h3>
+            <p>Beautiful experiences</p>
+          </div>
+        </div>
+      </section>
+      <footer style="background: #1a1a1a; color: white; text-align: center; padding: 30px; margin-top: 60px;">
+        <p>&copy; 2026 My Portfolio. All rights reserved.</p>
+      </footer>
+    `,
+    css: `
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
+      h1, h2, h3 { font-weight: 600; }
+      section { transition: all 0.3s ease; }
+    `,
+    js: `
+      console.log('Website loaded successfully!');
+      document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('section');
+        sections.forEach((section, index) => {
+          setTimeout(() => {
+            section.style.opacity = '1';
+            section.style.transform = 'translateY(0)';
+          }, index * 100);
+        });
+      });
+    `,
+  };
+}
+
+function generateBlogWebsite(): WebsiteTemplate {
+  return {
+    html: `
+      <header style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; text-align: center;">
+        <h1 style="margin-bottom: 10px;">Tech Blog</h1>
+        <p>Thoughts on web development and design</p>
+      </header>
+      <main style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
+        <article style="margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid #eee;">
+          <h2 style="margin-bottom: 10px;">Getting Started with Web Development</h2>
+          <p style="color: #666; margin-bottom: 20px;">Published on April 2, 2026</p>
+          <p>Web development is an exciting field with endless possibilities. Learn the basics of HTML, CSS, and JavaScript to start your journey.</p>
+        </article>
+      </main>
+      <footer style="background: #f5f5f5; padding: 30px; text-align: center; color: #666; margin-top: 40px;">
+        <p>&copy; 2026 Tech Blog. All rights reserved.</p>
+      </footer>
+    `,
+    css: `
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: Georgia, serif; line-height: 1.8; color: #333; }
+    `,
+    js: `console.log('Blog loaded!');`,
+  };
+}
+
+function generateBusinessWebsite(): WebsiteTemplate {
+  return {
+    html: `
+      <nav style="background: white; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <h2 style="color: #667eea;">My Business</h2>
+      </nav>
+      <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 100px 20px; text-align: center;">
+        <h1 style="font-size: 3em; margin-bottom: 20px;">Welcome to Our Business</h1>
+        <p style="font-size: 1.2em;">We provide exceptional services</p>
+      </section>
+      <footer style="background: #1a1a1a; color: white; text-align: center; padding: 40px;">
+        <p>&copy; 2026 My Business. All rights reserved.</p>
+      </footer>
+    `,
+    css: `* { margin: 0; padding: 0; box-sizing: border-box; }`,
+    js: `console.log('Business website loaded!');`,
+  };
+}
+
+export function generateWebsite(description: string): WebsiteTemplate {
+  const lowerDesc = description.toLowerCase();
+
+  if (lowerDesc.includes('portfolio') || lowerDesc.includes('showcase')) {
+    return generatePortfolioWebsite();
+  }
+
+  if (lowerDesc.includes('blog') || lowerDesc.includes('article')) {
+    return generateBlogWebsite();
+  }
+
+  return generateBusinessWebsite();
+}
