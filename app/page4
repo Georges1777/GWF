@@ -1,0 +1,24 @@
+import { generateWebsite } from '@/lib/websiteGenerator';
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function POST(request: NextRequest) {
+  try {
+    const { description } = await request.json();
+
+    if (!description || description.trim().length === 0) {
+      return NextResponse.json(
+        { error: 'Description is required' },
+        { status: 400 }
+      );
+    }
+
+    const website = generateWebsite(description);
+    return NextResponse.json(website);
+  } catch (error) {
+    console.error('Error generating website:', error);
+    return NextResponse.json(
+      { error: 'Failed to generate website' },
+      { status: 500 }
+    );
+  }
+}
